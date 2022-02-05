@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-
+#import ffmpeg lib and i want to show via print() how bitrite is that track
 
 class MyClient(discord.Client):
     async def on_ready(self):
