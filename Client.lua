@@ -1,5 +1,6 @@
 -- Discord Client Class
 -- @module Client
+discord = require 'discord.init'
 
 local path = (...):match('(.-)[^%.]+$')
 
