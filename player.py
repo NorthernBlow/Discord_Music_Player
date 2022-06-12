@@ -1,6 +1,7 @@
 import urllib
 import asyncio
 import os
+from os import environ
 from os.path import join, dirname
 from dotenv import load_dotenv
 from discord.ext import commands
