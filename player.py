@@ -103,5 +103,5 @@ async def play(ctx, arg):
         if not vc.is_paused():
             await vc.disconnect()
 
-bot.run('OTM4NzUzMjU3OTY1MjI4MDMz.G_W5a6.rouVUtvjOp0h81OVgMiKmP5vaPH7ndzO41Ah6w')
+bot.run('your token goes here')
 ##client.run('OTM4NzUzMjU3OTY1MjI4MDMz.G_W5a6.rouVUtvjOp0h81OVgMiKmP5vaPH7ndzO41Ah6w')
