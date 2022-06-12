@@ -15,6 +15,7 @@ FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconne
 
 bot = commands.Bot(command_prefix='$')
 
+@client.event
 async def on_ready():
     sys.stdout.write('Бот запущен.\Команда: $play <link>')
 
@@ -51,7 +52,7 @@ async def play(ctx, arg):
         
     else:
         # ЭТОТ КУСОК КОДА ВОСПРОИЗВОДИТ МУЗЫКУ ПО ССЫЛКЕ
-        await ctx.send(f'{ctx.message.author.mention}, музыка уже проигрывается. Останавливаю, и включаю новую')
+        await ctx.send(f'{ctx.message.author.mention}, включаю музыку')
 
         with YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(arg, download=False)
