@@ -1,6 +1,6 @@
 import urllib
 import asyncio
-import pafy
+# import pafy
 from discord.ext import commands
 import discord
 from discord import FFmpegPCMAudio, PCMVolumeTransformer
@@ -13,49 +13,10 @@ FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconne
 client = discord.Client()
 
 bot = commands.Bot(command_prefix='$')
-# FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5','options': '-vn'}
 
-
-@bot.command(pass_context=True)
-async def SendMessage(self, ctx):
-    await ctx.send('Hello')
-
-@bot.command(pass_context=True, name='test')
-async def test(self, ctx):
-    search = "morpheus tutorials discord bot python"
-
-    if ctx.message.author.voice == None:
-        await ctx.send(
-            embed=Embeds.txt("No Voice Channel", "You need to be in a voice channel to use this command!", ctx.author))
-        return
-
-    channel = ctx.message.author.voice.channel
-
-    voice = discord.utils.get(ctx.guild.voice_channels, name=channel.name)
-
-    voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
-
-    if voice_client == None:
-        voice_client = await voice.connect()
-    else:
-        await voice_client.move_to(channel)
-
-    search = search.replace(" ", "+")
-
-    html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + search)
-    video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
-
-    await ctx.send("https://www.youtube.com/watch?v=" + video_ids[0])
-
-    song = pafy.new(video_ids[0])  # creates a new pafy object
-
-    audio = song.getbestaudio()  # gets an audio source
-
-    source = FFmpegPCMAudio(audio.url,
-                            **FFMPEG_OPTIONS)  # converts the youtube audio source into a source discord can use
-
-    voice_client.play(source)  # play the source
-
+# 
+# ЭТА КОМАНДА ЗАСТАВЛЯЕТ БОТА ПОДКЛЮЧИТЬСЯ К ГОЛОСОВОМУ КАНАЛУ
+# 
 @bot.command(name='join',aliases = ['summon']) # CREATING COMMAND "JOIN" WITH ALIAS SUMMON
 async def _join(ctx, *, channel: discord.VoiceChannel = None): # TAKING ARGUMENT CHANNEL SO PPL CAN MAKE THE BOT JOIN A VOICE CHANNEL THAT THEY ARE NOT IN
     """Joins a voice channel."""
@@ -70,13 +31,9 @@ async def _join(ctx, *, channel: discord.VoiceChannel = None): # TAKING ARGUMENT
     await ctx.send(f"Succesfully joined the voice channel: {destination.name} ({destination.id}).")
 
 
-@bot.command()
-async def startq(ctx):
-    voicechannel = discord.utils.get(ctx.guild.channels, name='queue')
-    vc = await voicechannel.connect()
-    vc.play(discord.FFmpegPCMAudio("https://www.youtube.com/watch?v=eFLeZSEKjZ8"), after=lambda e: print('done', e))
-
-
+# 
+# ЭТА КОМАНДА ЗАСТАВЛЯЕТ БОТА ПОДКЛЮЧИТЬСЯ К ГОЛОСОВОМУ КАНАЛУ И ВОСПРОИЗВЕСТИ ЗВУК ИЗ ССЫЛКИ
+# 
 @bot.command()
 async def play(ctx, arg):
     global vc
