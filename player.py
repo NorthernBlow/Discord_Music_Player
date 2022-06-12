@@ -1,6 +1,5 @@
 import urllib
 import asyncio
-# import pafy
 from discord.ext import commands
 import discord
 from discord import FFmpegPCMAudio, PCMVolumeTransformer
@@ -10,12 +9,11 @@ from asyncio import sleep
 YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'False'}
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',  'options': '-vn'}
 
-client = discord.Client()
 
 bot = commands.Bot(command_prefix='$')
 
 async def on_ready():
-  print('Бот запущен.\Команда: $play <link>')
+    sys.stdout.write('Бот запущен.\Команда: $play <link>')
 
 
 # 
@@ -32,9 +30,9 @@ async def play(ctx, arg):
         print('Уже подключен или не удалось подключиться')
 
     if vc.is_playing():
-        await ctx.send(f'{ctx.message.author.mention}, музыка уже проигрывается. Останавливаю, и включаю новую')
-        
         # ЭТОТ КУСОК КОДА СТОПИТ ТЕКУЩУЮ МУЗЫКУ, ЕСЛИ ВОСПРОИЗВОДИТСЯ, И ВКЛЮЧАЕТ НОВУЮ
+        await ctx.send(f'{ctx.message.author.mention}, музыка уже проигрывается. Останавливаю, и включаю новую')
+
         vc.stop()
         with YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(arg, download=False)
@@ -49,6 +47,9 @@ async def play(ctx, arg):
             await vc.disconnect()
         
     else:
+        # ЭТОТ КУСОК КОДА ВОСПРОИЗВОДИТ МУЗЫКУ ПО ССЫЛКЕ
+        await ctx.send(f'{ctx.message.author.mention}, музыка уже проигрывается. Останавливаю, и включаю новую')
+
         with YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(arg, download=False)
 
@@ -62,4 +63,3 @@ async def play(ctx, arg):
             await vc.disconnect()
 
 bot.run('OTM4NzUzMjU3OTY1MjI4MDMz.GutY9m.Q-NTIGt3aQ1BKfn35sPuC1arK4by7hiuuzh2tI')
-##client.run('OTM4NzUzMjU3OTY1MjI4MDMz.G_W5a6.rouVUtvjOp0h81OVgMiKmP5vaPH7ndzO41Ah6w')
