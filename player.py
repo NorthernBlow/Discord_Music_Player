@@ -5,6 +5,7 @@ import discord
 from discord import FFmpegPCMAudio, PCMVolumeTransformer
 from youtube_dl import YoutubeDL
 from asyncio import sleep
+from os import environ
 
 YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'False'}
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',  'options': '-vn'}
@@ -62,4 +63,5 @@ async def play(ctx, arg):
         if not vc.is_paused():
             await vc.disconnect()
 
-bot.run('OTM4NzUzMjU3OTY1MjI4MDMz.GutY9m.Q-NTIGt3aQ1BKfn35sPuC1arK4by7hiuuzh2tI')
+load_dotenv()
+bot.run(environ.get('token'))
