@@ -89,3 +89,6 @@ async def kill(ctx):
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 bot.run(environ.get('token'))
+
+if __name__ == '__main__':
+    main()
