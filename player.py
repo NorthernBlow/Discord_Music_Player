@@ -11,7 +11,7 @@ from asyncio import sleep
 
 YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'False'}
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
-intents = discord.Intents(messages=True, guilds=True)
+intents = discord.Intents.all();
 
 bot = commands.Bot(intents=intents, command_prefix='!')
 
@@ -32,15 +32,12 @@ async def helpme(ctx):
 # 
 # ЭТА КОМАНДА ЗАСТАВЛЯЕТ БОТА ПОДКЛЮЧИТЬСЯ К ГОЛОСОВОМУ КАНАЛУ И ВОСПРОИЗВЕСТИ ЗВУК ИЗ ССЫЛКИ
 # 
-@bot.command(name='включи')
+@bot.command(name='play')
 async def play(ctx, arg):
-    global vc
-
-    try:
-        voice_channel = ctx.message.author.voice.channel
-        vc = await voice_channel.connect()
-    except:
-        print('Уже подключен или не удалось подключиться')
+    ctx.message.author.voice.channel
+    
+    voice_channel = ctx.message.author.voice.channel
+    vc = await voice_channel.connect()
 
     if vc.is_playing():
         # ЭТОТ КУСОК КОДА СТОПИТ ТЕКУЩУЮ МУЗЫКУ, ЕСЛИ ВОСПРОИЗВОДИТСЯ, И ВКЛЮЧАЕТ НОВУЮ
