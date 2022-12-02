@@ -74,7 +74,7 @@ async def play(ctx, arg):
 
 
 # 
-# ЭТА КОМАНДА ЗАСТАВЛЯЕТ БОТА СЪЕБАТЬСЯ
+# ЭТА КОМАНДА ЗАСТАВЛЯЕТ БОТА УМЕРЕТЬ
 # 
 @bot.command(name='умри')
 async def kill(ctx):
