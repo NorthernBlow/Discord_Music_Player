@@ -1,0 +1,12 @@
+[Unit]
+Description=equalbot
+After=network.target
+
+[Service]
+User=northernblow
+Group=northernblow
+WorkingDirectory=/home/northernblow/prog/discord
+Environment="PATH=/home/northerblow/prog/discord/env/bin"
+ExecStart=/home/northernblow/prog/discord/env/bin/python player.py
+TimeoutSec=30
+Restart=always
