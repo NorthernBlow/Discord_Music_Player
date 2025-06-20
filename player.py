@@ -9,7 +9,10 @@ import discord
 from youtube_dl import YoutubeDL
 from asyncio import sleep
 
-YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'False'}
+YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'False', 'postprocessors': [{'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '320',
+        }],}
 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
 intents = discord.Intents.all();
 
@@ -42,7 +45,13 @@ async def play(ctx, arg):
     if vc.is_playing():
         # ЭТОТ КУСОК КОДА СТОПИТ ТЕКУЩУЮ МУЗЫКУ, ЕСЛИ ВОСПРОИЗВОДИТСЯ, И ВКЛЮЧАЕТ НОВУЮ
         await ctx.send(f'{ctx.message.author.mention}, музыка уже проигрывается. Останавливаю, и включаю новую.\nДля воспроизведения другого плейлиста, отправь команду !play <ссылка>')
-
+        ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '320',
+        }],}
         vc.stop()
         with YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(arg, download=False)
